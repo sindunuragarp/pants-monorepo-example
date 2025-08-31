@@ -1,1 +1,1 @@
-shell_sources(sources=["install-hooks.sh", "githooks/pre-push"])
+shell_sources(sources=["*.sh", "githooks/*"])
