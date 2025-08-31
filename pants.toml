@@ -4,8 +4,12 @@ pants_version = "2.27.0"
 backend_packages = [
   "pants.backend.docker",
   "pants.backend.python",
+  "pants.backend.build_files.fmt.ruff",
   "pants.backend.experimental.python.lint.ruff.format",
   "pants.backend.experimental.python.lint.ruff.check",
+  "pants.backend.shell",
+  "pants.backend.shell.lint.shellcheck",
+  "pants.backend.shell.lint.shfmt",
 ]
 
 [source]
@@ -24,3 +28,6 @@ env-default = "lockfiles/default.lock"
 env-data-processor = "lockfiles/service_data_processor.lock"
 env-pytest = "lockfiles/tools_pytest.lock"
 env-ruff = "lockfiles/tools_ruff.lock"
+
+[shfmt]
+args = ["-i 4", "-ci", "-sr"]

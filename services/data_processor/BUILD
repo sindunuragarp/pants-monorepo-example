@@ -7,8 +7,8 @@ python_tests(
     resolve="env-data-processor",
     sources=["tests/*.py"],
     dependencies=[
-        "//:common-reqs#httpx" # transitive dependency of fastapi test client
-    ]
+        "//:common-reqs#httpx"  # transitive dependency of fastapi test client
+    ],
 )
 
 pex_binary(

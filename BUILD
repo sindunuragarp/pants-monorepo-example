@@ -4,13 +4,13 @@ python_requirements(
     source="requirements-common.txt",
     module_mapping={
         "scikit-learn": ["sklearn"],
-    }
+    },
 )
 
 python_requirements(
     name="default-reqs",
     resolve="env-default",
-    source="requirements.txt"
+    source="requirements.txt",
 )
 
 python_requirements(
@@ -27,7 +27,7 @@ python_requirement(
     resolve="env-ruff",
     requirements=[
         "ruff==0.12.11",
-    ]
+    ],
 )
 
 python_requirement(

@@ -4,8 +4,8 @@ python_tests(
     name="tests",
     sources=["tests/*"],
     dependencies=[
-        "//:common-reqs#httpx" # transitive dependency of fastapi test client
-    ]
+        "//:common-reqs#httpx"  # transitive dependency of fastapi test client
+    ],
 )
 
 pex_binary(
