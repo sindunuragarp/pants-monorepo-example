@@ -13,9 +13,10 @@ python_tests(
 
 pex_binary(
     name="data-processor-bin",
+    resolve="env-data-processor",
     entry_point="main.py",
 )
 
 docker_image(
-    name="data-processor-image"
+    name="data-processor-image",
 )

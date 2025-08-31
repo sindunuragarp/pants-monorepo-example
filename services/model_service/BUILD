@@ -14,5 +14,5 @@ pex_binary(
 )
 
 docker_image(
-    name="model-service-image"
+    name="model-service-image",
 )
