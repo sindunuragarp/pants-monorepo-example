@@ -4,7 +4,7 @@ setup:
 	curl --proto '=https' --tlsv1.2 -fsSL https://static.pantsbuild.org/setup/get-pants.sh | bash
 
 check:
-	pants fmt lint ::
+	pants fix lint ::
 
 test:
 	pants test ::

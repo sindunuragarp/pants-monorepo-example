@@ -8,12 +8,12 @@ import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-from utils.validation import (
+from libs.utils.validation import (
     validate_dataframe_schema,
     sanitize_input_data,
     validate_numeric_range,
 )
-from utils.logging_config import (
+from libs.utils.logging_config import (
     setup_logger,
     log_request_info,
     log_data_processing_stats,

@@ -1,6 +1,6 @@
 .PHONY: check
 check:
-	pants fmt lint ::
+	pants fix lint ::
 
 .PHONY: test
 test:

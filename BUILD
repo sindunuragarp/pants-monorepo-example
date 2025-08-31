@@ -16,7 +16,7 @@ python_requirements(
 python_requirements(
     name="data-processor-reqs",
     resolve="data_processor",
-    source="services/data-processor/requirements.txt",
+    source="services/data_processor/requirements.txt",
 )
 
 

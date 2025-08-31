@@ -11,12 +11,12 @@ from pydantic import BaseModel
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 
-from utils.validation import (
+from libs.utils.validation import (
     validate_dataframe_schema,
     sanitize_input_data,
     validate_numeric_range,
 )
-from utils.logging_config import (
+from libs.utils.logging_config import (
     setup_logger,
     log_request_info,
     log_data_processing_stats,
@@ -153,10 +153,10 @@ async def predict(request: PredictionRequest):
     """Make predictions using a trained model."""
     start_time = time.time()
 
-    try:
-        if request.model_name not in models:
-            raise HTTPException(status_code=404, detail=f"Model '{request.model_name}' not found")
+    if request.model_name not in models:
+        raise HTTPException(status_code=404, detail=f"Model '{request.model_name}' not found")
 
+    try:
         # Sanitize input data
         sanitized_data = [sanitize_input_data(item) for item in request.data]
         df = pd.DataFrame(sanitized_data)
