@@ -10,8 +10,16 @@ from pydantic import BaseModel
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 
-from utils.validation import validate_dataframe_schema, sanitize_input_data, validate_numeric_range
-from utils.logging_config import setup_logger, log_request_info, log_data_processing_stats
+from utils.validation import (
+    validate_dataframe_schema,
+    sanitize_input_data,
+    validate_numeric_range,
+)
+from utils.logging_config import (
+    setup_logger,
+    log_request_info,
+    log_data_processing_stats,
+)
 
 
 app = FastAPI(title="Model Service", version="1.0.0")
@@ -105,7 +113,7 @@ async def train_model(request: TrainingRequest):
         # Store model and scaler
         models[request.model_name] = {
             "model": model,
-            "feature_columns": feature_columns
+            "feature_columns": feature_columns,
         }
         scalers[request.model_name] = scaler
 
@@ -116,8 +124,9 @@ async def train_model(request: TrainingRequest):
         duration = time.time() - start_time
 
         # Log training stats
-        log_data_processing_stats(logger, f"model_training_{request.model_name}",
-                                len(request.data), duration)
+        log_data_processing_stats(
+            logger, f"model_training_{request.model_name}", len(request.data), duration
+        )
 
         response = TrainingResponse(
             model_name=request.model_name,
@@ -125,9 +134,9 @@ async def train_model(request: TrainingRequest):
             stats={
                 "training_samples": len(request.data),
                 "features_used": len(feature_columns),
-                "duration_seconds": round(duration, 3)
+                "duration_seconds": round(duration, 3),
             },
-            status="success"
+            status="success",
         )
 
         return response
@@ -175,17 +184,21 @@ async def predict(request: PredictionRequest):
         duration = time.time() - start_time
 
         # Log prediction stats
-        log_data_processing_stats(logger, f"model_prediction_{request.model_name}",
-                                len(request.data), duration)
+        log_data_processing_stats(
+            logger,
+            f"model_prediction_{request.model_name}",
+            len(request.data),
+            duration,
+        )
 
         response = PredictionResponse(
             predictions=predictions.tolist(),
             model_name=request.model_name,
             stats={
                 "input_samples": len(request.data),
-                "duration_seconds": round(duration, 3)
+                "duration_seconds": round(duration, 3),
             },
-            status="success"
+            status="success",
         )
 
         return response
@@ -202,8 +215,7 @@ async def log_requests(request, call_next):
     start_time = time.time()
     response = await call_next(request)
     duration = time.time() - start_time
-    log_request_info(logger, request.method, str(request.url.path),
-                    response.status_code, duration)
+    log_request_info(logger, request.method, str(request.url.path), response.status_code, duration)
     return response
 
 

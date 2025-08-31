@@ -24,10 +24,10 @@ def test_process_aggregate():
         "data": [
             {"category": "A", "value": 10},
             {"category": "A", "value": 20},
-            {"category": "B", "value": 15}
+            {"category": "B", "value": 15},
         ],
         "operation": "aggregate",
-        "parameters": {"group_by": ["category"]}
+        "parameters": {"group_by": ["category"]},
     }
 
     response = client.post("/process", json=request_data)
@@ -42,13 +42,9 @@ def test_process_aggregate():
 def test_process_filter():
     """Test data filtering processing."""
     request_data = {
-        "data": [
-            {"id": 1, "value": 5},
-            {"id": 2, "value": 15},
-            {"id": 3, "value": 25}
-        ],
+        "data": [{"id": 1, "value": 5}, {"id": 2, "value": 15}, {"id": 3, "value": 25}],
         "operation": "filter",
-        "parameters": {"min_value": 10, "max_value": 20}
+        "parameters": {"min_value": 10, "max_value": 20},
     }
 
     response = client.post("/process", json=request_data)
@@ -63,12 +59,9 @@ def test_process_filter():
 def test_process_validate():
     """Test data validation processing."""
     request_data = {
-        "data": [
-            {"id": 1, "value": 5},
-            {"id": 2, "value": 15}
-        ],
+        "data": [{"id": 1, "value": 5}, {"id": 2, "value": 15}],
         "operation": "validate",
-        "parameters": {"min_value": 0, "max_value": 20}
+        "parameters": {"min_value": 0, "max_value": 20},
     }
 
     response = client.post("/process", json=request_data)
@@ -80,10 +73,7 @@ def test_process_validate():
 
 def test_process_invalid_operation():
     """Test invalid operation handling."""
-    request_data = {
-        "data": [{"id": 1, "value": 5}],
-        "operation": "unknown_operation"
-    }
+    request_data = {"data": [{"id": 1, "value": 5}], "operation": "unknown_operation"}
 
     response = client.post("/process", json=request_data)
     assert response.status_code == 400

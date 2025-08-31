@@ -33,11 +33,11 @@ def test_train_model():
             {"feature1": 1.0, "feature2": 2.0, "target": 0},
             {"feature1": 2.0, "feature2": 3.0, "target": 1},
             {"feature1": 3.0, "feature2": 4.0, "target": 1},
-            {"feature1": 0.5, "feature2": 1.0, "target": 0}
+            {"feature1": 0.5, "feature2": 1.0, "target": 0},
         ],
         "target_column": "target",
         "model_name": "test_model",
-        "features": ["feature1", "feature2"]
+        "features": ["feature1", "feature2"],
     }
 
     response = client.post("/train", json=training_data)
@@ -57,10 +57,10 @@ def test_predict_with_trained_model():
         "data": [
             {"feature1": 1.0, "feature2": 2.0, "target": 0},
             {"feature1": 2.0, "feature2": 3.0, "target": 1},
-            {"feature1": 3.0, "feature2": 4.0, "target": 1}
+            {"feature1": 3.0, "feature2": 4.0, "target": 1},
         ],
         "target_column": "target",
-        "model_name": "predict_test_model"
+        "model_name": "predict_test_model",
     }
 
     train_response = client.post("/train", json=training_data)
@@ -70,9 +70,9 @@ def test_predict_with_trained_model():
     prediction_data = {
         "data": [
             {"feature1": 1.5, "feature2": 2.5},
-            {"feature1": 2.5, "feature2": 3.5}
+            {"feature1": 2.5, "feature2": 3.5},
         ],
-        "model_name": "predict_test_model"
+        "model_name": "predict_test_model",
     }
 
     response = client.post("/predict", json=prediction_data)
@@ -88,7 +88,7 @@ def test_predict_with_nonexistent_model():
     """Test prediction with model that doesn't exist."""
     prediction_data = {
         "data": [{"feature1": 1.0, "feature2": 2.0}],
-        "model_name": "nonexistent_model"
+        "model_name": "nonexistent_model",
     }
 
     response = client.post("/predict", json=prediction_data)
@@ -98,11 +98,9 @@ def test_predict_with_nonexistent_model():
 def test_train_model_missing_target():
     """Test training with missing target column."""
     training_data = {
-        "data": [
-            {"feature1": 1.0, "feature2": 2.0}
-        ],
+        "data": [{"feature1": 1.0, "feature2": 2.0}],
         "target_column": "missing_target",
-        "model_name": "invalid_model"
+        "model_name": "invalid_model",
     }
 
     response = client.post("/train", json=training_data)
