@@ -14,13 +14,13 @@ root_patterns = ["/"]
 [python]
 interpreter_constraints = ['>=3.12']
 enable_resolves = true
-default_resolve = "default"
+default_resolve = "env-default"
 
 [python-bootstrap]
 search_path = ["<PYENV_LOCAL>", "/usr/bin"]
 
 [python.resolves]
-default = "lockfiles/default.lock"
-data_processor = "lockfiles/service_data_processor.lock"
-pytest = "lockfiles/tools_pytest.lock"
-ruff = "lockfiles/tools_ruff.lock"
+env-default = "lockfiles/default.lock"
+env-data-processor = "lockfiles/service_data_processor.lock"
+env-pytest = "lockfiles/tools_pytest.lock"
+env-ruff = "lockfiles/tools_ruff.lock"

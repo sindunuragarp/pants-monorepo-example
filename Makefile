@@ -1,4 +1,4 @@
-.PHONY: setup, check, test, lock
+.PHONY: setup, check, test, package, lock
 
 setup:
 	curl --proto '=https' --tlsv1.2 -fsSL https://static.pantsbuild.org/setup/get-pants.sh | bash
@@ -8,6 +8,9 @@ check:
 
 test:
 	pants test ::
+
+package:
+	pants package ::
 
 lock:
 	pants generate-lockfiles

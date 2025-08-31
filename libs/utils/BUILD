@@ -1,3 +1,3 @@
 python_sources(
-    resolve=parametrize("default", "data_processor"),
+    resolve=parametrize("env-default", "env-data-processor"),
 )

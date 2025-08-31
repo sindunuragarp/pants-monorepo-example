@@ -1,6 +1,6 @@
 python_requirements(
     name="common-reqs",
-    resolve=parametrize("default", "data_processor"),
+    resolve=parametrize("env-default", "env-data-processor"),
     source="requirements-common.txt",
     module_mapping={
         "scikit-learn": ["sklearn"],
@@ -9,13 +9,13 @@ python_requirements(
 
 python_requirements(
     name="default-reqs",
-    resolve="default",
+    resolve="env-default",
     source="requirements.txt"
 )
 
 python_requirements(
     name="data-processor-reqs",
-    resolve="data_processor",
+    resolve="env-data-processor",
     source="services/data_processor/requirements.txt",
 )
 
@@ -24,7 +24,7 @@ python_requirements(
 
 python_requirement(
     name="ruff-reqs",
-    resolve="ruff",
+    resolve="env-ruff",
     requirements=[
         "ruff==0.12.11",
     ]
@@ -32,7 +32,7 @@ python_requirement(
 
 python_requirement(
     name="pytest-reqs",
-    resolve="pytest",
+    resolve="env-pytest",
     requirements=[
         "pytest==7.4.0",
     ],

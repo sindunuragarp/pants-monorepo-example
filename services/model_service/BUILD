@@ -12,3 +12,7 @@ pex_binary(
     name="model-service-bin",
     entry_point="main.py",
 )
+
+docker_image(
+    name="model-service-image"
+)
