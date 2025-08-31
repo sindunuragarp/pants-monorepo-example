@@ -1,11 +1,14 @@
-python_sources()
+python_sources(
+    resolve="data_processor",
+)
 
 python_tests(
     name="tests",
+    resolve="data_processor",
     sources=["tests/*"],
 )
 
-python_requirements(
-    name="reqs",
-    source="requirements.txt",
+pex_binary(
+    name="data_processor",
+    entry_point="main.py",
 )

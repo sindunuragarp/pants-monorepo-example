@@ -5,7 +5,7 @@ python_tests(
     sources=["tests/*"],
 )
 
-python_requirements(
-    name="reqs",
-    source="requirements.txt",
+pex_binary(
+    name="model_service",
+    entry_point="main.py",
 )

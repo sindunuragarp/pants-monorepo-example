@@ -5,6 +5,7 @@ from typing import Dict, List, Optional
 
 import numpy as np
 import pandas as pd
+import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from sklearn.ensemble import RandomForestClassifier
