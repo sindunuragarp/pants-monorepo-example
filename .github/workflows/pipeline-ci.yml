@@ -46,11 +46,6 @@ jobs:
         run: |
           make test.changed
 
-      - name: 'Run Build (Changed)'
-        if: github.event_name == 'pull_request'
-        run: |
-          make package.changed
-
       # Trunk
 
       - name: 'Run Checks'
@@ -63,12 +58,11 @@ jobs:
         run: |
           make test
 
+      # Build
+      
       - name: 'Run Build'
-        if: github.event_name != 'pull_request'
         run: |
-          make package
-
-      # Publish
+          make package.changed
 
       - name: 'List Built Images'
         run: |
