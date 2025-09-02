@@ -24,7 +24,9 @@ check:
 check.changed.ci:
 	pants \
 		tailor --check \
-		lint --changed-since=origin/main
+		lint \
+		--changed-since=origin/main \
+		--changed-dependents=transitive
 
 .PHONY: check.fix
 check.fix:
@@ -38,8 +40,9 @@ test:
 
 .PHONY: test.changed.ci
 test.changed.ci:
-	pants \
-		test --changed-since=origin/main
+	pants test \
+		--changed-since=origin/main \
+		--changed-dependents=transitive
 
 .PHONY: package
 package:
@@ -47,8 +50,9 @@ package:
 
 .PHONY: package.changed.ci
 package.changed.ci:
-	GIT_SHA=$(shell git rev-parse HEAD) pants \
-		package --changed-since=origin/main
+	GIT_SHA=$(shell git rev-parse HEAD) pants package \
+		--changed-since=origin/main \
+		--changed-dependents=transitive
 
 .PHONY: publish
 publish:
@@ -56,8 +60,9 @@ publish:
 
 .PHONY: publish.changed.ci
 publish.changed.ci:
-	GIT_SHA=$(shell git rev-parse HEAD) pants \
-		publish --changed-since=origin/main
+	GIT_SHA=$(shell git rev-parse HEAD) pants publish \
+		--changed-since=origin/main \
+		--changed-dependents=transitive
 
 .PHONY: lock
 lock:
