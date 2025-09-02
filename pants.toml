@@ -31,3 +31,6 @@ env-ruff = "lockfiles/tools_ruff.lock"
 
 [shfmt]
 args = ["-i 4", "-ci", "-sr"]
+
+[docker]
+use_buildx = true
