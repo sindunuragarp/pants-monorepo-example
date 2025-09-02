@@ -1,0 +1,77 @@
+---
+name: 'Pipeline: CI'
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'scripts/**'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - 'scripts/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }} # One build per PR, do not cancel builds on maints
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v4
+
+      - name: 'Set up Python'
+        uses: actions/setup-python@v4
+
+      - name: 'Initialize Pants'
+        uses: pantsbuild/actions/init-pants@v10
+        with:
+          gha-cache-key: v0-pants-${{ runner.os }}
+          named-caches-hash: ${{ hashFiles('lockfiles/*.json') }}
+
+      # Pull Requests
+
+      - name: 'Run Checks (Changed)'
+        if: github.event_name == 'pull_request'
+        run: |
+          make check.changed
+
+      - name: 'Run Tests (Changed)'
+        if: github.event_name == 'pull_request'
+        run: |
+          make test.changed
+
+      - name: 'Run Build (Changed)'
+        if: github.event_name == 'pull_request'
+        run: |
+          make package.changed
+
+      # Trunk
+
+      - name: 'Run Checks'
+        if: github.event_name != 'pull_request'
+        run: |
+          make check
+
+      - name: 'Run Tests'
+        if: github.event_name != 'pull_request'
+        run: |
+          make test
+
+      - name: 'Run Build'
+        if: github.event_name != 'pull_request'
+        run: |
+          make package
+
+      # Publish
+
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
