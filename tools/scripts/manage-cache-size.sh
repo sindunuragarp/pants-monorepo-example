@@ -14,5 +14,5 @@ function nuke_if_too_big() {
     fi
 }
 
-nuke_if_too_big ~/.cache/nce 512
-nuke_if_too_big ~/.cache/pants/named_caches 1024
+nuke_if_too_big ~/.cache/nce 1024
+nuke_if_too_big ~/.cache/pants/named_caches 2048
