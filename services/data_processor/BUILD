@@ -18,5 +18,8 @@ pex_binary(
 )
 
 docker_image(
-    name="data-processor-image",
+    name="data-processor",
+    cache_to={"type": "local", "dest": "/tmp/docker-cache/data-processor"},
+    cache_from=[{"type": "local", "src": "/tmp/docker-cache/data-processor"}],
+    build_platform=["linux/amd64", "linux/arm64"],
 )

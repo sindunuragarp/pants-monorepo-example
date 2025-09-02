@@ -22,3 +22,7 @@ package:
 .PHONY: run
 run:
 	pants run main.py
+
+.PHONY: run.image
+run.image:
+	pants run ./Dockerfile
