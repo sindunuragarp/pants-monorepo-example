@@ -18,14 +18,12 @@ setup.mac:
 check:
 	pants \
 		tailor --check \
-		update-build-files --check \
 		lint ::
 
 .PHONY: check.changed.ci
 check.changed.ci:
 	pants \
 		tailor --check \
-		update-build-files --check \
 		lint --changed-since=origin/main
 
 .PHONY: check.fix
