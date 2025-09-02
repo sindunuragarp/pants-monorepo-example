@@ -13,3 +13,6 @@ global_report = true
 
 [pytest]
 args = ["-vv", "--no-header"]
+
+[environments-preview.names]
+build = "//:build-local"

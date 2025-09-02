@@ -10,6 +10,7 @@ python_tests(
 
 pex_binary(
     name="model-service-bin-deps",
+    environment="build",
     entry_point="main.py",
     layout="packed",
     include_tools=True,
@@ -22,6 +23,7 @@ pex_binary(
 
 pex_binary(
     name="model-service-bin-srcs",
+    environment="build",
     entry_point="main.py",
     layout="packed",
     include_tools=True,

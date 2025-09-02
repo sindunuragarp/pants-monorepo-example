@@ -14,6 +14,7 @@ python_tests(
 pex_binary(
     name="data-processor-bin-deps",
     resolve="env-data-processor",
+    environment="build",
     entry_point="main.py",
     layout="packed",
     include_tools=True,
@@ -27,6 +28,7 @@ pex_binary(
 pex_binary(
     name="data-processor-bin-srcs",
     resolve="env-data-processor",
+    environment="build",
     entry_point="main.py",
     layout="packed",
     include_tools=True,

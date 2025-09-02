@@ -39,3 +39,7 @@ args = ["-i 4", "-ci", "-sr"]
 
 [docker]
 use_buildx = true
+
+[environments-preview.names]
+default = "//:local"
+build = "//:build-docker"
