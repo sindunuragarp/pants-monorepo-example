@@ -37,3 +37,15 @@ python_requirement(
         "pytest==7.4.0",
     ],
 )
+
+# Environments
+
+local_environment(name="local")
+
+local_environment(name="build-local")
+
+docker_environment(
+    name="build-docker",
+    image="python:3.11-slim",
+    python_bootstrap_search_path=["<PATH>"],
+)

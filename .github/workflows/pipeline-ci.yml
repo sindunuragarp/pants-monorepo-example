@@ -1,0 +1,178 @@
+---
+name: 'Pipeline: CI'
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'scripts/**'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - 'scripts/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }} # One build per PR, do not cancel builds on maints
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: 'Test'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Trunk'
+        uses: actions/checkout@v4
+        with:
+          ref: 'main'
+
+      - name: 'Checkout Current'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # include merge base
+
+      - name: 'Set up Python'
+        uses: actions/setup-python@v4
+
+      - name: 'Initialize Pants'
+        uses: pantsbuild/actions/init-pants@v10
+        with:
+          gha-cache-key: v0-pants-test-${{ runner.os }}
+          named-caches-hash: "${{ hashFiles('lockfiles/*.lock') }}"
+
+      # Pull Requests
+
+      - name: 'Run Checks (Changed)'
+        if: github.event_name == 'pull_request'
+        run: |
+          make check.changed.ci
+
+      - name: 'Run Tests (Changed)'
+        if: github.event_name == 'pull_request'
+        run: |
+          make test.changed.ci
+
+      # Trunk
+
+      - name: 'Run Checks'
+        if: github.event_name != 'pull_request'
+        run: |
+          make check
+
+      - name: 'Run Tests'
+        if: github.event_name != 'pull_request'
+        run: |
+          make test
+
+      # Clean Up
+
+      - name: 'Manage Cache'
+        run: |
+          make manage-cache
+
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Trunk'
+        uses: actions/checkout@v4
+        with:
+          ref: 'main'
+
+      - name: 'Checkout Current'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # include merge base
+
+      - name: 'Set up Python'
+        uses: actions/setup-python@v4
+
+      - name: 'Initialize Pants'
+        uses: pantsbuild/actions/init-pants@v10
+        with:
+          gha-cache-key: v0-pants-build-${{ runner.os }}
+          named-caches-hash: "${{ hashFiles('lockfiles/*.lock') }}"
+
+      # Build
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/arm64,linux/amd64
+
+      - name: 'Run Build'
+        run: |
+          make package.changed.ci
+
+      - name: 'List Built Images'
+        run: |
+          docker images
+
+      - name: 'Login to Image Registry'
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+
+      # Clean Up
+
+      - name: 'Manage Cache'
+        run: |
+          make manage-cache
+
+  publish:
+    name: 'Publish'
+    runs-on: ubuntu-latest
+    needs: [test, build]
+    if: github.event_name != 'pull_request'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: 'Checkout Trunk'
+        uses: actions/checkout@v4
+        with:
+          ref: 'main'
+
+      - name: 'Checkout Current'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # include merge base
+
+      - name: 'Set up Python'
+        uses: actions/setup-python@v4
+
+      - name: 'Initialize Pants'
+        uses: pantsbuild/actions/init-pants@v10
+        with:
+          gha-cache-key: v0-pants-build-${{ runner.os }}
+          named-caches-hash: "${{ hashFiles('lockfiles/*.lock') }}"
+
+      # Publish
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/arm64,linux/amd64
+
+      - name: 'Login to Image Registry'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+
+      - name: 'Publish'
+        run: |
+          make publish.changed.ci
+
+      # Clean Up
+
+      - name: 'Manage Cache'
+        run: |
+          make manage-cache
