@@ -18,8 +18,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check-and-test:
-    name: 'Check and Test'
+  test:
+    name: 'Test'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Trunk'
@@ -65,7 +65,13 @@ jobs:
         run: |
           make test
 
-  build: 
+      # Clean Up
+
+      - name: 'Manage Cache'
+        run: |
+          make manage-cache
+
+  build:
     name: 'Build'
     runs-on: ubuntu-latest
     steps:
@@ -89,7 +95,7 @@ jobs:
           named-caches-hash: "${{ hashFiles('lockfiles/*.lock') }}"
 
       # Build
-      
+
       - uses: docker/setup-buildx-action@v3
 
       - uses: docker/setup-qemu-action@v3
