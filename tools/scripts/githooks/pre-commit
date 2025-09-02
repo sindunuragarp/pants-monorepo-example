@@ -13,7 +13,10 @@ function git_merge_base() {
 MERGE_BASE="$(git_merge_base)"
 
 echo "* Fix Formatting"
-pants --changed-since="${MERGE_BASE}" fix
+pants --changed-since="${MERGE_BASE}" --changed-dependents=transitive fix
 
 echo "* Lint Checking"
-pants --changed-since="${MERGE_BASE}" lint
+pants --changed-since="${MERGE_BASE}" --changed-dependents=transitive lint
+
+echo "* Executing Tests"
+pants --changed-since="${MERGE_BASE}" --changed-dependents=transitive test
