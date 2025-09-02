@@ -16,7 +16,7 @@ backend_packages = [
 root_patterns = ["/"]
 
 [python]
-interpreter_constraints = ['>=3.12']
+interpreter_constraints = ["CPython>=3.10"]
 enable_resolves = true
 default_resolve = "env-default"
 
