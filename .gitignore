@@ -209,3 +209,4 @@ __marimo__/
 # Pants workspace files
 /.pants.d
 /dist/
+docs/

@@ -39,4 +39,6 @@ docker_image(
     build_platform=["linux/amd64"],
     cache_to={"type": "local", "dest": "/tmp/docker-cache/model-service"},
     cache_from=[{"type": "local", "src": "/tmp/docker-cache/model-service"}],
+    registries=["@repo"],
+    image_tags=["{build_args.GIT_SHA}"],
 )

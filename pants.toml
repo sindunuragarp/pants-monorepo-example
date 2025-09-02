@@ -39,7 +39,13 @@ args = ["-i 4", "-ci", "-sr"]
 
 [docker]
 use_buildx = true
+build_args = ["GIT_SHA"]
 
 [environments-preview.names]
 default = "//:local"
 build = "//:build-docker"
+
+[docker.registries.repo]
+address = "ghcr.io/sindunuragarp/python-monorepo-playground"
+default = true
+

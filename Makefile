@@ -43,11 +43,11 @@ test.changed.ci:
 
 .PHONY: package
 package:
-	pants package ::
+	GIT_SHA=$(shell git rev-parse HEAD) pants package ::
 
 .PHONY: package.changed.ci
 package.changed.ci:
-	pants \
+	GIT_SHA=$(shell git rev-parse HEAD) pants \
 		package --changed-since=origin/main
 
 .PHONY: lock

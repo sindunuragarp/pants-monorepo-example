@@ -17,7 +17,7 @@ test:
 
 .PHONY: package
 package:
-	pants package ::
+	GIT_SHA=$(git rev-parse HEAD) pants package ::
 
 .PHONY: run
 run:

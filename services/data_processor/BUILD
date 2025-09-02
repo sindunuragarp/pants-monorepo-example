@@ -44,4 +44,6 @@ docker_image(
     build_platform=["linux/amd64"],
     cache_to={"type": "local", "dest": "/tmp/docker-cache/data-processor"},
     cache_from=[{"type": "local", "src": "/tmp/docker-cache/data-processor"}],
+    registries=["@repo"],
+    image_tags=["{build_args.GIT_SHA}"],
 )
