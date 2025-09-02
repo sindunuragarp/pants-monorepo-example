@@ -19,7 +19,7 @@ pex_binary(
     include_tools=True,
     include_sources=False,
     complete_platforms=[
-        "tools/pex-platforms:pex-python311-aarch64",
+        "tools/pex-platforms:pex-python311-arm64",
         "tools/pex-platforms:pex-python311-amd64",
     ],
 )
@@ -32,7 +32,7 @@ pex_binary(
     include_tools=True,
     include_requirements=False,
     complete_platforms=[
-        "tools/pex-platforms:pex-python311-aarch64",
+        "tools/pex-platforms:pex-python311-arm64",
         "tools/pex-platforms:pex-python311-amd64",
     ],
 )
@@ -41,5 +41,5 @@ docker_image(
     name="data-processor",
     cache_to={"type": "gha", "mode": "max"},
     cache_from=[{"type": "gha"}],
-    build_platform=["linux/amd64", "linux/aarch64"],
+    build_platform=["linux/amd64", "linux/arm64"],
 )

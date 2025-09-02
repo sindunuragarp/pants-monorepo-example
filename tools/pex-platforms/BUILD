@@ -3,8 +3,8 @@ shell_sources(
 )
 
 file(
-    name="pex-python311-aarch64",
-    source="pex-python311-aarch64.json",
+    name="pex-python311-arm64",
+    source="pex-python311-arm64.json",
 )
 
 file(
