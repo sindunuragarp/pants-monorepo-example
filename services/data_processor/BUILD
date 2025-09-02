@@ -41,5 +41,5 @@ docker_image(
     name="data-processor",
     cache_to={"type": "gha", "mode": "max"},
     cache_from=[{"type": "gha"}],
-    build_platform=["linux/amd64", "linux/arm64"],
+    build_platform=["linux/amd64"],
 )
