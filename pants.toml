@@ -16,9 +16,11 @@ backend_packages = [
 root_patterns = ["/"]
 
 [python]
+pip_version = "latest"
 interpreter_constraints = ["CPython>=3.10"]
 enable_resolves = true
 default_resolve = "env-default"
+resolver_manylinux = "manylinux2_41"
 
 [python-bootstrap]
 search_path = ["<PYENV_LOCAL>", "/usr/bin"]
@@ -28,6 +30,9 @@ env-default = "lockfiles/default.lock"
 env-data-processor = "lockfiles/service_data_processor.lock"
 env-pytest = "lockfiles/tools_pytest.lock"
 env-ruff = "lockfiles/tools_ruff.lock"
+
+[pex-cli]
+version = "v2.37.0"
 
 [shfmt]
 args = ["-i 4", "-ci", "-sr"]
