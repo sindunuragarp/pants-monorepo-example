@@ -1,15 +1,32 @@
 # SETUP
 
+.PHONY: setup.linux
+setup.linux:
+	@echo "# Setting Up Runtime"
+	apt-get update && apt-get install -y \
+		python3-pip \
+		python3-venv \
+		git \
+		curl
+
+	@echo "# Setting Up Monorepo Tooling"
+	curl --proto '=https' --tlsv1.2 -fsSL https://static.pantsbuild.org/setup/get-pants.sh | bash
+
+	@echo "# Setting Up Git Hooks"
+	git init
+	./tools/scripts/install-hooks.sh
+
 .PHONY: setup.mac
 setup.mac:
 	@echo "# Setting Up Runtime"
-	brew install pyenv act
+	brew install pyenv act git
 	pyenv install --skip-existing
 
 	@echo "# Setting Up Monorepo Tooling"
 	curl --proto '=https' --tlsv1.2 -fsSL https://static.pantsbuild.org/setup/get-pants.sh | bash
 
-	@echo "#Setting Up Git Hooks"
+	@echo "# Setting Up Git Hooks"
+	git init
 	./tools/scripts/install-hooks.sh
 
 # PROJECT
