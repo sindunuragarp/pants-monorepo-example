@@ -22,7 +22,7 @@ check:
 		lint ::
 
 .PHONY: check.changed.ci
-check.changed:
+check.changed.ci:
 	pants \
 		tailor --check \
 		update-build-files --check \
@@ -39,7 +39,7 @@ test:
 	pants test ::
 
 .PHONY: test.changed.ci
-test.changed:
+test.changed.ci:
 	pants \
 		test --changed-since=origin/main
 
@@ -48,7 +48,7 @@ package:
 	pants package ::
 
 .PHONY: package.changed.ci
-package.changed:
+package.changed.ci:
 	pants \
 		package --changed-since=origin/main
 
