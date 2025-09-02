@@ -10,7 +10,7 @@ setup.mac:
 	curl --proto '=https' --tlsv1.2 -fsSL https://static.pantsbuild.org/setup/get-pants.sh | bash
 
 	@echo "#Setting Up Git Hooks"
-	./scripts/install-hooks.sh
+	./tools/scripts/install-hooks.sh
 
 # PROJECT
 

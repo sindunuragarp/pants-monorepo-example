@@ -18,7 +18,7 @@ pex_binary(
     layout="packed",
     include_tools=True,
     include_sources=False,
-    complete_platforms=["platforms:pex-python311-slim"],
+    complete_platforms=["tools/pex-platforms:pex-python311-slim"],
 )
 
 pex_binary(
@@ -28,7 +28,7 @@ pex_binary(
     layout="packed",
     include_tools=True,
     include_requirements=False,
-    complete_platforms=["platforms:pex-python311-slim"],
+    complete_platforms=["tools/pex-platforms:pex-python311-slim"],
 )
 
 docker_image(

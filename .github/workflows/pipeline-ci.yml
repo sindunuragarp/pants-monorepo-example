@@ -27,10 +27,6 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: 'Pull Trunk'
-        run: |
-          git pull origin main
-
       - name: 'Set up Python'
         uses: actions/setup-python@v4
 
