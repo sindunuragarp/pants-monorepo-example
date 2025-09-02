@@ -13,3 +13,6 @@ global_report = true
 
 [pytest]
 args = ["-vv", "--no-header"]
+
+[docker]
+use_buildx = true

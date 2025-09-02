@@ -14,5 +14,7 @@ pex_binary(
 )
 
 docker_image(
-    name="model-service-image",
+    name="model-service",
+    cache_to={"type": "local", "dest": "/tmp/docker-cache/model-service"},
+    cache_from=[{"type": "local", "src": "/tmp/docker-cache/model-service"}],
 )
