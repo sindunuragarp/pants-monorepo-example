@@ -26,7 +26,7 @@ check.changed:
 	pants \
 		tailor --check \
 		update-build-files --check \
-		lint --changed-since=origin/main
+		lint --changed-since=HEAD
 
 .PHONY: check.fix
 check.fix:
@@ -41,7 +41,7 @@ test:
 .PHONY: test.changed
 test.changed:
 	pants \
-		test --changed-since=origin/main
+		test --changed-since=HEAD
 
 .PHONY: package
 package:
@@ -50,7 +50,7 @@ package:
 .PHONY: package.changed
 package.changed:
 	pants \
-		package --changed-since=origin/main
+		package --changed-since=HEAD
 
 .PHONY: lock
 lock:
