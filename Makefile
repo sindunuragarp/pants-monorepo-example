@@ -58,7 +58,7 @@ lock:
 
 .PHONY: manage-cache
 manage-cache:
-	./scripts/manage-cache-size.sh
+	./tools/scripts/manage-cache-size.sh
 
 # LOCAL CI
 
