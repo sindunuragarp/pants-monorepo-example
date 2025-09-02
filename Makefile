@@ -21,12 +21,12 @@ check:
 		update-build-files --check \
 		lint ::
 
-.PHONY: check.changed
+.PHONY: check.changed.ci
 check.changed:
 	pants \
 		tailor --check \
 		update-build-files --check \
-		lint --changed-since=HEAD
+		lint --changed-since=origin/main
 
 .PHONY: check.fix
 check.fix:
@@ -38,19 +38,19 @@ check.fix:
 test:
 	pants test ::
 
-.PHONY: test.changed
+.PHONY: test.changed.ci
 test.changed:
 	pants \
-		test --changed-since=HEAD
+		test --changed-since=origin/main
 
 .PHONY: package
 package:
 	pants package ::
 
-.PHONY: package.changed
+.PHONY: package.changed.ci
 package.changed:
 	pants \
-		package --changed-since=HEAD
+		package --changed-since=origin/main
 
 .PHONY: lock
 lock:

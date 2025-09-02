@@ -24,6 +24,12 @@ jobs:
     steps:
       - name: 'Checkout repository'
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 'Pull Trunk'
+        run: |
+          git pull origin main
 
       - name: 'Set up Python'
         uses: actions/setup-python@v4
@@ -39,12 +45,12 @@ jobs:
       - name: 'Run Checks (Changed)'
         if: github.event_name == 'pull_request'
         run: |
-          make check.changed
+          make check.changed.ci
 
       - name: 'Run Tests (Changed)'
         if: github.event_name == 'pull_request'
         run: |
-          make test.changed
+          make test.changed.ci
 
       # Trunk
 
@@ -68,7 +74,7 @@ jobs:
 
       - name: 'Run Build'
         run: |
-          make package.changed
+          make package.changed.ci
 
       - name: 'List Built Images'
         run: |
