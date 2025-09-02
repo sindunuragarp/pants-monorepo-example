@@ -17,4 +17,5 @@ docker_image(
     name="model-service",
     cache_to={"type": "local", "dest": "/tmp/docker-cache/model-service"},
     cache_from=[{"type": "local", "src": "/tmp/docker-cache/model-service"}],
+    build_platform=["linux/amd64", "linux/arm64"],
 )

@@ -59,9 +59,13 @@ jobs:
           make test
 
       # Build
-      
+
       - uses: docker/setup-buildx-action@v3
-      
+
+      - uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/arm64,linux/amd64
+
       - name: 'Run Build'
         run: |
           make package.changed
