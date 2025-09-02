@@ -56,6 +56,12 @@ package.changed:
 lock:
 	pants generate-lockfiles
 
+# CI
+
+.PHONY: manage-cache
+manage-cache:
+	./scripts/manage-cache-size.sh
+
 # LOCAL CI
 
 .PHONY: local.ci.setup
