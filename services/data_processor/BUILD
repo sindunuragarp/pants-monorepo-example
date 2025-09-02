@@ -41,7 +41,7 @@ pex_binary(
 
 docker_image(
     name="data-processor",
-    cache_to={"type": "gha", "mode": "max"},
-    cache_from=[{"type": "gha"}],
     build_platform=["linux/amd64"],
+    cache_to={"type": "local", "dest": "/tmp/docker-cache/data-processor"},
+    cache_from=[{"type": "local", "src": "/tmp/docker-cache/data-processor"}],
 )

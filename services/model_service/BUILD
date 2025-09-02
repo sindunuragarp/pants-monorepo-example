@@ -36,7 +36,7 @@ pex_binary(
 
 docker_image(
     name="model-service",
-    cache_to={"type": "gha", "mode": "max"},
-    cache_from=[{"type": "gha"}],
     build_platform=["linux/amd64"],
+    cache_to={"type": "local", "dest": "/tmp/docker-cache/model-service"},
+    cache_from=[{"type": "local", "src": "/tmp/docker-cache/model-service"}],
 )
