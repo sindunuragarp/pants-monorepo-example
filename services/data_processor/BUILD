@@ -12,14 +12,28 @@ python_tests(
 )
 
 pex_binary(
-    name="data-processor-bin",
+    name="data-processor-bin-deps",
     resolve="env-data-processor",
     entry_point="main.py",
+    layout="packed",
+    include_tools=True,
+    include_sources=False,
+    complete_platforms=["platforms:pex-python311-slim"],
+)
+
+pex_binary(
+    name="data-processor-bin-srcs",
+    resolve="env-data-processor",
+    entry_point="main.py",
+    layout="packed",
+    include_tools=True,
+    include_requirements=False,
+    complete_platforms=["platforms:pex-python311-slim"],
 )
 
 docker_image(
     name="data-processor",
-    cache_to={"type": "local", "dest": "/tmp/docker-cache/data-processor"},
-    cache_from=[{"type": "local", "src": "/tmp/docker-cache/data-processor"}],
-    build_platform=["linux/amd64", "linux/arm64"],
+    cache_to={"type": "gha", "mode": "max"},
+    cache_from=[{"type": "gha"}],
+    build_platform=["linux/amd64"],
 )

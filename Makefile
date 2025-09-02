@@ -1,11 +1,11 @@
 # SETUP
 
-.PHONY: setup
-setup:
-	@echo "# Setting Up Python"
-	brew install pyenv
+.PHONY: setup.mac
+setup.mac:
+	@echo "# Setting Up Runtime"
+	brew install pyenv act
 	pyenv install --skip-existing
-	
+
 	@echo "# Setting Up Monorepo Tooling"
 	curl --proto '=https' --tlsv1.2 -fsSL https://static.pantsbuild.org/setup/get-pants.sh | bash
 
@@ -64,14 +64,10 @@ manage-cache:
 
 # LOCAL CI
 
-.PHONY: local.ci.setup
-local.ci.setup:
-	brew install act
-
-.PHOLY: local.ci.run
+.PHONY: local.ci.run
 local.ci.run:
 	act push
 
-.PHOLY: local.ci.run.pr
+.PHONY: local.ci.run.pr
 local.ci.run.pr:
 	act pull_request

@@ -9,13 +9,26 @@ python_tests(
 )
 
 pex_binary(
-    name="model-service-bin",
+    name="model-service-bin-deps",
     entry_point="main.py",
+    layout="packed",
+    include_tools=True,
+    include_sources=False,
+    complete_platforms=["platforms:pex-python311-slim"],
+)
+
+pex_binary(
+    name="model-service-bin-srcs",
+    entry_point="main.py",
+    layout="packed",
+    include_tools=True,
+    include_requirements=False,
+    complete_platforms=["platforms:pex-python311-slim"],
 )
 
 docker_image(
     name="model-service",
-    cache_to={"type": "local", "dest": "/tmp/docker-cache/model-service"},
-    cache_from=[{"type": "local", "src": "/tmp/docker-cache/model-service"}],
-    build_platform=["linux/amd64", "linux/arm64"],
+    cache_to={"type": "gha", "mode": "max"},
+    cache_from=[{"type": "gha"}],
+    build_platform=["linux/amd64"],
 )
