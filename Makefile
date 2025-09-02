@@ -50,6 +50,15 @@ package.changed.ci:
 	GIT_SHA=$(shell git rev-parse HEAD) pants \
 		package --changed-since=origin/main
 
+.PHONY: publish
+publish:
+	GIT_SHA=$(shell git rev-parse HEAD) pants publish ::
+
+.PHONY: publish.changed.ci
+publish.changed.ci:
+	GIT_SHA=$(shell git rev-parse HEAD) pants \
+		publish --changed-since=origin/main
+
 .PHONY: lock
 lock:
 	pants generate-lockfiles
