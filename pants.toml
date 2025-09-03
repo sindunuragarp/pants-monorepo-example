@@ -46,6 +46,6 @@ default = "//:local"
 build = "//:build-docker"
 
 [docker.registries.repo]
-address = "ghcr.io/sindunuragarp/python-monorepo-playground"
+address = "ghcr.io/sindunuragarp/pants-monorepo-example"
 default = true
 

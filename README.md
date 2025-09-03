@@ -1,6 +1,6 @@
-# python-monorepo-playground
+# pants-monorepo-example
 
-For playing around with Python monorepos
+Example monorepo using [Pants](https://www.pantsbuild.org/) build tool.
 
 ## Local Development
 
